@@ -1,0 +1,57 @@
+name:                hello-scotty
+version:             0.1.0.0
+github:              "kijimaru/hello-scotty"
+license:             MIT
+author:              "kijimaru"
+maintainer:          "eddix.ibanez@outlook.jp"
+copyright:           "2020 Kijimaru"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/hello-scotty#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  hello-scotty-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hello-scotty
+    - scotty
+    - http-types
+    - aeson
+    - HDBC-mysql
+    - relational-record
+    - relational-query
+    - relational-query-HDBC
+    - HDBC
+    - persistable-record
+
+tests:
+  hello-scotty-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hello-scotty

@@ -1,0 +1,72 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 1224857e68bea9a1525eda271c01065aab8a547592200279bf62801140ce5d50
+
+name:           hello-scotty
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/hello-scotty#readme>
+homepage:       https://github.com/kijimaru/hello-scotty#readme
+bug-reports:    https://github.com/kijimaru/hello-scotty/issues
+author:         kijimaru
+maintainer:     eddix.ibanez@outlook.jp
+copyright:      2020 Kijimaru
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/kijimaru/hello-scotty
+
+library
+  exposed-modules:
+      DataSource
+      Lib
+  other-modules:
+      Paths_hello_scotty
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable hello-scotty-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_hello_scotty
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HDBC
+    , HDBC-mysql
+    , aeson
+    , base >=4.7 && <5
+    , hello-scotty
+    , http-types
+    , persistable-record
+    , relational-query
+    , relational-query-HDBC
+    , relational-record
+    , scotty
+  default-language: Haskell2010
+
+test-suite hello-scotty-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hello_scotty
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , hello-scotty
+  default-language: Haskell2010
