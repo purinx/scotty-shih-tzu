@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Main where
 
 import Control.Monad.IO.Class
@@ -19,9 +20,7 @@ main = do
   scotty 3000 $ do
     get "/" $ html "<h1>Hello</h1>"
     get "/users/:uid" $ do
-      t <- param "uid"
-      case readMaybe t of
-        Just i -> liftIO(findById i db) >>= \result -> case result of
-          (user : _) -> json user
-          _ -> status status400 >> text "Bad Request"
-        Nothing -> status status400 >> text "Bad Request"
+      (i :: Int) <- param "uid"
+      liftIO(findById i db) >>= \result -> case result of
+        (Just user : _) -> json user
+        _ -> status status400 >> text "Bad Request"
