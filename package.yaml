@@ -20,10 +20,15 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/hello-scotty#readme>
 
 dependencies:
-- base >= 4.7 && < 5
+- base >= 4.9 && < 5
 
 library:
   source-dirs: src
+  dependencies:
+    - aeson
+    - http-types
+    - scotty
+    - mysql-haskell
 
 executables:
   hello-scotty-exe:
@@ -34,16 +39,11 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - hello-scotty
-    - scotty
-    - http-types
     - aeson
-    - HDBC-mysql
-    - relational-record
-    - relational-query
-    - relational-query-HDBC
-    - HDBC
-    - persistable-record
+    - hello-scotty
+    - http-types
+    - scotty
+    - mysql-haskell
 
 tests:
   hello-scotty-test:

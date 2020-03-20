@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1224857e68bea9a1525eda271c01065aab8a547592200279bf62801140ce5d50
+-- hash: a7a1ecb95356f7792f56c9bcaa30e30b2ee44ff27d2f837048ae8919b1544b06
 
 name:           hello-scotty
 version:        0.1.0.0
@@ -27,14 +27,15 @@ source-repository head
 
 library
   exposed-modules:
-      DataSource
-      Lib
   other-modules:
       Paths_hello_scotty
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , http-types
+    , mysql-haskell
+    , scotty
   default-language: Haskell2010
 
 executable hello-scotty-exe
@@ -45,16 +46,11 @@ executable hello-scotty-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      HDBC
-    , HDBC-mysql
-    , aeson
-    , base >=4.7 && <5
+      aeson
+    , base >=4.9 && <5
     , hello-scotty
     , http-types
-    , persistable-record
-    , relational-query
-    , relational-query-HDBC
-    , relational-record
+    , mysql-haskell
     , scotty
   default-language: Haskell2010
 
@@ -67,6 +63,6 @@ test-suite hello-scotty-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      base >=4.9 && <5
     , hello-scotty
   default-language: Haskell2010
