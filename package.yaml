@@ -30,6 +30,7 @@ library:
     - scotty
     - mysql-haskell
     - io-streams
+    - text
 
 executables:
   hello-scotty-exe:
@@ -47,7 +48,6 @@ executables:
     - mysql-haskell
     - io-streams
     - text
-    - safe
 
 tests:
   hello-scotty-test:

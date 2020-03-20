@@ -21,6 +21,7 @@ main = do
     get "/" $ html "<h1>Hello</h1>"
     get "/users/:uid" $ do
       (i :: Int) <- param "uid"
+      () <- liftIO(print i)
       liftIO(findById i db) >>= \result -> case result of
         (Just user : _) -> json user
-        _ -> status status400 >> text "Bad Request"
+        _ -> liftIO(print result) >> status status400 >> text "Bad Request"

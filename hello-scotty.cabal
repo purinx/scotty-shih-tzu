@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 15b23832df6cbfc5cd121043454495c97232c1b7a0a141d4ea7e9a8004d7a875
+-- hash: ad3e15f61b73017545d66b851ce611ccc516a6a6f58eb48ed760cbccf1ea8b99
 
 name:           hello-scotty
 version:        0.1.0.0
@@ -41,6 +41,7 @@ library
     , io-streams
     , mysql-haskell
     , scotty
+    , text
   default-language: Haskell2010
 
 executable hello-scotty-exe
@@ -57,7 +58,6 @@ executable hello-scotty-exe
     , http-types
     , io-streams
     , mysql-haskell
-    , safe
     , scotty
     , text
   default-language: Haskell2010

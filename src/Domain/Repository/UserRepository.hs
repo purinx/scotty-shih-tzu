@@ -8,13 +8,13 @@ import Database.MySQL.Protocol.MySQLValue
 import Domain.Entity.User
 import GHC.Word
 import Text.Read (readMaybe)
+import Data.Text (pack)
 import qualified System.IO.Streams as Streams
 
 createEntity :: [MySQLValue] -> Maybe User
-createEntity [MySQLInt32U uid, MySQLText name, MySQLText password] = Just User { 
+createEntity (MySQLInt32 uid : MySQLText name : _) = Just User { 
   uid = readMaybe $ show uid
-, name = show name
-, password = show password
+, name
 }
 createEntity _ = Nothing
 
