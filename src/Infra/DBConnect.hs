@@ -6,8 +6,8 @@ import Control.Monad         (forever)
 import Database.MySQL.Base
 
 dbIO = connect
-    defaultConnectInfo
-        { ciUser = "root"
-        , ciPassword = ""
-        , ciDatabase = "shih_tzu"
-        }
+  defaultConnectInfo
+    { ciUser = "root"
+    , ciPassword = ""
+    , ciDatabase = "shih_tzu"
+    }

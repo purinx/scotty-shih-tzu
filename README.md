@@ -63,3 +63,4 @@ In this way, you shoud be able to access below
 
 - http://localhost:3000
 - http://localhost:3000/users/1
+- http://localhost:3000/dogs/1

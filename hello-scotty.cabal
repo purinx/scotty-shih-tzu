@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ad3e15f61b73017545d66b851ce611ccc516a6a6f58eb48ed760cbccf1ea8b99
+-- hash: 3ce234d49e503338fdf30ac7f17c6fcd6b340daa97e5012f09258c430661547e
 
 name:           hello-scotty
 version:        0.1.0.0
@@ -27,7 +27,9 @@ source-repository head
 
 library
   exposed-modules:
+      Domain.Entity.Dog
       Domain.Entity.User
+      Domain.Repository.DogRepository
       Domain.Repository.UserRepository
       Infra.DBConnect
   other-modules:
