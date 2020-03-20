@@ -26,9 +26,16 @@ main = do
       liftIO(findById i db) >>= \result -> case result of
         (Just user : _) -> json user
         _ -> status status400 >> text "Bad Request"
+    get "/dogs" $ do
+      dogs <- liftIO(findAllDog db)
+      json dogs
     get "/dogs/:did" $ do
       (i :: Int) <- param "did"
       liftIO(findDogById i db) >>= \result -> case result of
         (Just dog : _) -> json dog
         _ -> status status400 >> text "Bad Request"
 
+    post "/dogs" $ do
+      d <- jsonData
+      liftIO(transactional db $ createDog d db)
+      status status204 >> text "Success"

@@ -4,13 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3ce234d49e503338fdf30ac7f17c6fcd6b340daa97e5012f09258c430661547e
+-- hash: 723551bc4bf16cdc0cdb0748de754f7429ed9bd58a38afe49a0a3765d942f30b
 
-name:           hello-scotty
+name:           scotty-shih-tzu
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/hello-scotty#readme>
-homepage:       https://github.com/kijimaru/hello-scotty#readme
-bug-reports:    https://github.com/kijimaru/hello-scotty/issues
+description:    Restfull API built with Haskell, scotty, mysql-haskell
+homepage:       https://github.com/kijimaru/scotty-shih-tzu#readme
+bug-reports:    https://github.com/kijimaru/scotty-shih-tzu/issues
 author:         kijimaru
 maintainer:     eddix.ibanez@outlook.jp
 copyright:      2020 Kijimaru
@@ -23,7 +23,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/kijimaru/hello-scotty
+  location: https://github.com/kijimaru/scotty-shih-tzu
 
 library
   exposed-modules:
@@ -33,7 +33,7 @@ library
       Domain.Repository.UserRepository
       Infra.DBConnect
   other-modules:
-      Paths_hello_scotty
+      Paths_scotty_shih_tzu
   hs-source-dirs:
       src
   build-depends:
@@ -49,18 +49,18 @@ library
 executable hello-scotty-exe
   main-is: Main.hs
   other-modules:
-      Paths_hello_scotty
+      Paths_scotty_shih_tzu
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
     , base >=4.9 && <5
-    , hello-scotty
     , http-types
     , io-streams
     , mysql-haskell
     , scotty
+    , scotty-shih-tzu
     , text
   default-language: Haskell2010
 
@@ -68,11 +68,11 @@ test-suite hello-scotty-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_hello_scotty
+      Paths_scotty_shih_tzu
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.9 && <5
-    , hello-scotty
+    , scotty-shih-tzu
   default-language: Haskell2010

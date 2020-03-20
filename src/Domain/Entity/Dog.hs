@@ -7,13 +7,13 @@ import Data.Aeson
 import GHC.Generics
 import Data.Text (Text)
 
-data User = Dog { 
+data Dog = Dog { 
   did :: Maybe Int
 , name :: Text
 , bread :: Text
-, ownerId :: Maybe Int
+, ownerId :: Int
 , ownerName :: Text
 } deriving (Show, Generic)
 
-instance ToJSON User
-instance FromJSON User
+instance ToJSON Dog
+instance FromJSON Dog
