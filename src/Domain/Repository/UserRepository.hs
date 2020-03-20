@@ -10,7 +10,7 @@ import qualified System.IO.Streams as Streams
 
 createEntity :: [MySQLValue] -> User
 createEntity row = User { 
-  uid = Just $ read $ show (row !! 0)
+  uid = read $ show (row !! 0)
 , name = show (row !! 1)
 , password = show (row !! 2) 
 }

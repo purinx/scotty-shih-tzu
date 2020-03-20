@@ -46,6 +46,8 @@ executables:
     - scotty
     - mysql-haskell
     - io-streams
+    - text
+    - safe
 
 tests:
   hello-scotty-test:

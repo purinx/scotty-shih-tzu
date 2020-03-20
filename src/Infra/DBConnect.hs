@@ -5,7 +5,7 @@ module Infra.DBConnect where
 import Control.Monad         (forever)
 import Database.MySQL.Base
 
-conn = connect
+dbIO = connect
     defaultConnectInfo
         { ciUser = "root"
         , ciPassword = ""

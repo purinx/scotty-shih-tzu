@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 77fa50a9a3b80ee6814794634f92743ca28f749dbbd1494a42c1566080422d7a
+-- hash: 15b23832df6cbfc5cd121043454495c97232c1b7a0a141d4ea7e9a8004d7a875
 
 name:           hello-scotty
 version:        0.1.0.0
@@ -57,7 +57,9 @@ executable hello-scotty-exe
     , http-types
     , io-streams
     , mysql-haskell
+    , safe
     , scotty
+    , text
   default-language: Haskell2010
 
 test-suite hello-scotty-test
