@@ -29,6 +29,7 @@ library:
     - http-types
     - scotty
     - mysql-haskell
+    - io-streams
 
 executables:
   hello-scotty-exe:
@@ -44,6 +45,7 @@ executables:
     - http-types
     - scotty
     - mysql-haskell
+    - io-streams
 
 tests:
   hello-scotty-test:

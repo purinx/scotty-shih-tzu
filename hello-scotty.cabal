@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a7a1ecb95356f7792f56c9bcaa30e30b2ee44ff27d2f837048ae8919b1544b06
+-- hash: 77fa50a9a3b80ee6814794634f92743ca28f749dbbd1494a42c1566080422d7a
 
 name:           hello-scotty
 version:        0.1.0.0
@@ -27,13 +27,18 @@ source-repository head
 
 library
   exposed-modules:
+      Domain.Entity.User
+      Domain.Repository.UserRepository
+      Infra.DBConnect
   other-modules:
       Paths_hello_scotty
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.9 && <5
     , http-types
+    , io-streams
     , mysql-haskell
     , scotty
   default-language: Haskell2010
@@ -50,6 +55,7 @@ executable hello-scotty-exe
     , base >=4.9 && <5
     , hello-scotty
     , http-types
+    , io-streams
     , mysql-haskell
     , scotty
   default-language: Haskell2010

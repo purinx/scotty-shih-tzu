@@ -7,7 +7,7 @@ import Data.Aeson
 import GHC.Generics
 
 data User = User { 
-  id :: Integer, 
+  uid :: Maybe Int, 
   name :: String, 
   password :: String 
 } deriving (Show, Generic)
