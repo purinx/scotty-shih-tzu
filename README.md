@@ -2,6 +2,8 @@
 
 Restfull API built with Haskell, Scotty, mysql-haskell.
 
+![Shih Tzu](https://user-images.githubusercontent.com/33439268/77206142-a2fcb600-6b39-11ea-96a6-461fb3525ed8.jpg)
+
 ## Requirements
 
 - stack
