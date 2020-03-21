@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 723551bc4bf16cdc0cdb0748de754f7429ed9bd58a38afe49a0a3765d942f30b
+-- hash: f5037bff8285e931a2d1ed13c17dfb4e47cbb3df9ebe07607b359dd0273ec9ae
 
 name:           scotty-shih-tzu
 version:        0.1.0.0
@@ -28,8 +28,10 @@ source-repository head
 library
   exposed-modules:
       Domain.Entity.Dog
+      Domain.Entity.Photo
       Domain.Entity.User
       Domain.Repository.DogRepository
+      Domain.Repository.PhotoRepository
       Domain.Repository.UserRepository
       Infra.DBConnect
   other-modules:

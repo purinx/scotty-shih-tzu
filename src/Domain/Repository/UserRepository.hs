@@ -20,5 +20,6 @@ createEntity _ = Nothing
 
 findById :: Int -> MySQLConn -> IO [Maybe User]
 findById uid conn = do
-  (defs, is) <- query conn "SELECT * FROM users WHERE id = ?" [MySQLInt32U $ fromIntegral uid]
+  s <- prepareStmt conn "SELECT * FROM users WHERE id = ?"
+  (defs, is) <- queryStmt conn s [MySQLInt32U $ fromIntegral uid]
   map createEntity <$> Streams.toList is
