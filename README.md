@@ -77,6 +77,10 @@ stack run
 ```
 In this way, you shoud be able to access below
 
-- http://localhost:3000
-- http://localhost:3000/users/1
-- http://localhost:3000/dogs/1
+- GET  http://localhost:3000
+- GET  http://localhost:3000/users/:uid
+- GET  http://localhost:3000/dogs/:did
+- POST http://localhost:3000/dogs
+- GET  http://localhost:3000/users/:uid/photos
+- GET  http://localhost:3000/dogs/:did/photos
+- POST http://localhost:3000/photos
