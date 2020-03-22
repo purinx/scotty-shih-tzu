@@ -11,6 +11,7 @@ data Dog = Dog {
   did :: Maybe Int
 , name :: Text
 , bread :: Text
+, iconUrl :: Text
 , ownerId :: Int
 , ownerName :: Text
 } deriving (Show, Generic)

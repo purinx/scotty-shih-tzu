@@ -12,6 +12,7 @@ data Photo = Photo {
 , dogId :: Int
 , dogName :: Text
 , bread :: Text
+, iconUrl :: Text
 , title :: Text
 , url :: Text
 , userId :: Int

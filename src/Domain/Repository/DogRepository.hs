@@ -17,17 +17,19 @@ import qualified System.IO.Streams as Streams
 data CreateDogDto = CreateDogDto {
   cdName :: Text
 , cdBread :: Text
+, cdIconUrl :: Text
 , cdOwnerId :: Int
 } deriving (Show, Generic)
 
 instance FromJSON CreateDogDto
 
 createEntity :: [MySQLValue] -> Maybe Dog
-createEntity (MySQLInt32 did : MySQLText name : MySQLText bread : MySQLInt32 ownerId : MySQLText ownerName : _) = 
+createEntity (MySQLInt32 did : MySQLText name : MySQLText bread : MySQLText iconUrl : MySQLInt32 ownerId : MySQLText ownerName : _) = 
   Just Dog {
     did = readMaybe $ show did
   , name
   , bread
+  , iconUrl
   , ownerId = read $ show ownerId
   , ownerName
   }
@@ -35,17 +37,17 @@ createEntity _ = Nothing
 
 findDogById :: Int -> MySQLConn -> IO [Maybe Dog]
 findDogById did conn = do
-  s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, users.id, users.name from dogs inner join users on dogs.owner_id = users.id where dogs.id = ?"
+  s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name from dogs inner join users on dogs.owner_id = users.id where dogs.id = ?"
   (defs, is) <- queryStmt conn s [MySQLInt32U $ fromIntegral did]
   map createEntity <$> Streams.toList is
 
 createDog :: CreateDogDto -> MySQLConn -> IO(OK)
 createDog dog conn = do
-  s <- prepareStmt conn "INSERT INTO dogs (name, bread, owner_id) values (?, ?, ?)"
-  executeStmt conn s [MySQLText $ cdName dog, MySQLText $ cdBread dog, MySQLInt32 $ fromIntegral $ cdOwnerId dog]
+  s <- prepareStmt conn "INSERT INTO dogs (name, bread, icon_url, owner_id) values (?, ?, ?, ?)"
+  executeStmt conn s [MySQLText $ cdName dog, MySQLText $ cdBread dog, MySQLText $ cdIconUrl dog, MySQLInt32 $ fromIntegral $ cdOwnerId dog]
 
 findAllDog :: MySQLConn -> IO [Maybe Dog]
 findAllDog conn = do
-  s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, users.id, users.name from dogs inner join users on dogs.owner_id = users.id"
+  s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name from dogs inner join users on dogs.owner_id = users.id"
   (defs, is) <- queryStmt conn s []
   map createEntity <$> Streams.toList is
