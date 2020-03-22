@@ -29,6 +29,11 @@ main = do
         (Just user : _) -> json user
         _ -> status status400 >> text "Bad Request"
 
+    post "/users" $ do
+      u <- jsonData
+      liftIO(transactional db $ createUser u db)
+      status status201 >> text "Success"
+
     get "/dogs" $ do
       dogs <- liftIO(findAllDog db)
       json dogs

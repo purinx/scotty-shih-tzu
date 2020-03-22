@@ -1,15 +1,26 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 module Domain.Repository.DogRepository where
 
-import Data.Text (pack)
+import Data.Aeson
+import Data.Text (Text)
 import Database.MySQL.Base
 import Database.MySQL.Protocol.MySQLValue
 import Domain.Entity.Dog
+import GHC.Generics
 import GHC.Word
 import Text.Read (readMaybe)
 import qualified System.IO.Streams as Streams
+
+data CreateDogDto = CreateDogDto {
+  cdName :: Text
+, cdBread :: Text
+, cdOwnerId :: Int
+} deriving (Show, Generic)
+
+instance FromJSON CreateDogDto
 
 createEntity :: [MySQLValue] -> Maybe Dog
 createEntity (MySQLInt32 did : MySQLText name : MySQLText bread : MySQLInt32 ownerId : MySQLText ownerName : _) = 
@@ -28,10 +39,10 @@ findDogById did conn = do
   (defs, is) <- queryStmt conn s [MySQLInt32U $ fromIntegral did]
   map createEntity <$> Streams.toList is
 
-createDog :: Dog -> MySQLConn -> IO(OK)
+createDog :: CreateDogDto -> MySQLConn -> IO(OK)
 createDog dog conn = do
   s <- prepareStmt conn "INSERT INTO dogs (name, bread, owner_id) values (?, ?, ?)"
-  executeStmt conn s [MySQLText $ name dog, MySQLText $ bread dog, MySQLInt32 $ fromIntegral $ ownerId dog]
+  executeStmt conn s [MySQLText $ cdName dog, MySQLText $ cdBread dog, MySQLInt32 $ fromIntegral $ cdOwnerId dog]
 
 findAllDog :: MySQLConn -> IO [Maybe Dog]
 findAllDog conn = do
