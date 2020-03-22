@@ -49,6 +49,10 @@ main = do
       liftIO(transactional db $ createDog d db)
       status status201 >> text "Success"
 
+    get "/photos" $ do
+      photos <- liftIO(findPhotoAll db)
+      json photos
+
     get "/users/:uid/photos" $ do
       (i :: Int) <- param "uid"
       photos <- liftIO(findPhotoByUserId i db)
