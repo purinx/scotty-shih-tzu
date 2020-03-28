@@ -11,6 +11,7 @@ import Database.MySQL.Protocol.MySQLValue
 import Domain.Entity.Dog
 import GHC.Generics
 import GHC.Word
+import System.Exit (die)
 import Text.Read (readMaybe)
 import qualified System.IO.Streams as Streams
 
@@ -53,3 +54,11 @@ findAllDog conn = do
   s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name, dogs.bio from dogs inner join users on dogs.owner_id = users.id"
   (defs, is) <- queryStmt conn s []
   map createEntity <$> Streams.toList is
+
+updateDog :: Dog -> MySQLConn -> IO (OK)
+updateDog dog conn = do
+  case did dog of
+    Nothing -> die "did is undefined"
+    Just i -> do
+      s <- prepareStmt conn "UPDATE dogs SET name=?, bread=?, icon_url=?, bio=? where id = ?"
+      executeStmt conn s [MySQLText $ name dog, MySQLText $ bread dog, MySQLText $ iconUrl dog, MySQLText $ bio dog, MySQLInt32 $ fromIntegral i]

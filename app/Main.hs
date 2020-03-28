@@ -49,6 +49,11 @@ main = do
       liftIO(transactional db $ createDog d db)
       status status201 >> text "Success"
 
+    patch "/dogs" $ do
+      d <- jsonData
+      liftIO(transactional db $ updateDog d db)
+      status status204 >> text "Success"
+
     get "/photos" $ do
       photos <- liftIO(findPhotoAll db)
       json photos
