@@ -46,7 +46,7 @@ findDogById did conn = do
 
 createDog :: CreateDogDto -> MySQLConn -> IO(OK)
 createDog dog conn = do
-  s <- prepareStmt conn "INSERT INTO dogs (name, bread, icon_url, owner_id, bio) values (?, ?, ?, ?)"
+  s <- prepareStmt conn "INSERT INTO dogs (name, bread, icon_url, owner_id, bio) values (?, ?, ?, ?, ?)"
   executeStmt conn s [MySQLText $ cdName dog, MySQLText $ cdBread dog, MySQLText $ cdIconUrl dog, MySQLInt32 $ fromIntegral $ cdOwnerId dog, MySQLText $ cdBio dog]
 
 findAllDog :: MySQLConn -> IO [Maybe Dog]
