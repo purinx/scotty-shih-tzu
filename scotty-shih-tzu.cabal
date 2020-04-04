@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f5037bff8285e931a2d1ed13c17dfb4e47cbb3df9ebe07607b359dd0273ec9ae
+-- hash: acf7305de478a57f84226b9938b7ec65d0c14b5b7bc113e38a875816ac80f9b4
 
 name:           scotty-shih-tzu
 version:        0.1.0.0
@@ -41,6 +41,8 @@ library
   build-depends:
       aeson
     , base >=4.9 && <5
+    , bytestring
+    , cryptonite
     , http-types
     , io-streams
     , mysql-haskell
@@ -58,6 +60,8 @@ executable hello-scotty-exe
   build-depends:
       aeson
     , base >=4.9 && <5
+    , bytestring
+    , cryptonite
     , http-types
     , io-streams
     , mysql-haskell

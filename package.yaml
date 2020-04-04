@@ -31,6 +31,8 @@ library:
     - mysql-haskell
     - io-streams
     - text
+    - bytestring
+    - cryptonite
 
 executables:
   hello-scotty-exe:
@@ -42,11 +44,13 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - aeson
-    - scotty-shih-tzu
+    - bytestring
+    - cryptonite
     - http-types
-    - scotty
-    - mysql-haskell
     - io-streams
+    - mysql-haskell
+    - scotty
+    - scotty-shih-tzu
     - text
 
 tests:
