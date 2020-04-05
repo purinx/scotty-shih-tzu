@@ -26,13 +26,14 @@ library:
   source-dirs: src
   dependencies:
     - aeson
-    - http-types
-    - scotty
-    - mysql-haskell
-    - io-streams
-    - text
     - bytestring
     - cryptonite
+    - http-types
+    - io-streams
+    - mysql-haskell
+    - scotty
+    - text
+    - mtl
 
 executables:
   hello-scotty-exe:
@@ -48,10 +49,12 @@ executables:
     - cryptonite
     - http-types
     - io-streams
+    - mtl
     - mysql-haskell
     - scotty
     - scotty-shih-tzu
     - text
+    - uuid
 
 tests:
   hello-scotty-test:

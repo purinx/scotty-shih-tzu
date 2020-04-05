@@ -38,18 +38,18 @@ createEntity (MySQLInt32 did : MySQLText name : MySQLText bread : MySQLText icon
   }
 createEntity _ = Nothing
 
-findDogById :: Int -> MySQLConn -> IO [Maybe Dog]
+findDogById :: Int -> MySQLConn -> IO(Maybe Dog)
 findDogById did conn = do
   s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name, dogs.bio from dogs inner join users on dogs.owner_id = users.id where dogs.id = ?"
   (defs, is) <- queryStmt conn s [MySQLInt32U $ fromIntegral did]
-  map createEntity <$> Streams.toList is
+  createEntity . head <$> Streams.toList is
 
 createDog :: CreateDogDto -> MySQLConn -> IO(OK)
 createDog dog conn = do
   s <- prepareStmt conn "INSERT INTO dogs (name, bread, icon_url, owner_id, bio) values (?, ?, ?, ?, ?)"
   executeStmt conn s [MySQLText $ cdName dog, MySQLText $ cdBread dog, MySQLText $ cdIconUrl dog, MySQLInt32 $ fromIntegral $ cdOwnerId dog, MySQLText $ cdBio dog]
 
-findAllDog :: MySQLConn -> IO [Maybe Dog]
+findAllDog :: MySQLConn -> IO[Maybe Dog]
 findAllDog conn = do
   s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name, dogs.bio from dogs inner join users on dogs.owner_id = users.id"
   (defs, is) <- queryStmt conn s []

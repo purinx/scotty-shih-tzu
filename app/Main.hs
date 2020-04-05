@@ -25,9 +25,9 @@ main = do
 
     get "/users/:uid" $ do
       (i :: Int) <- param "uid"
-      liftIO(findById i db) >>= \result -> case result of
-        (Just user : _) -> json user
-        _ -> status status400 >> text "Bad Request"
+      liftIO(findById i db) >>= maybe
+        (status status400 >> text "Bad Request")
+        json
 
     post "/users" $ do
       u <- jsonData
@@ -35,14 +35,13 @@ main = do
       status status201 >> text "Success"
 
     get "/dogs" $ do
-      dogs <- liftIO(findAllDog db)
-      json dogs
+      liftIO(findAllDog db) >>= json
 
     get "/dogs/:did" $ do
       (i :: Int) <- param "did"
-      liftIO(findDogById i db) >>= \result -> case result of
-        (Just dog : _) -> json dog
-        _ -> status status400 >> text "Bad Request"
+      liftIO(findDogById i db) >>= maybe
+        (status status400 >> text "Bad Request")
+        json
 
     post "/dogs" $ do
       d <- jsonData
