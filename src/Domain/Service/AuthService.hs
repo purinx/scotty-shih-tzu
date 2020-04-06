@@ -26,8 +26,7 @@ validate password = maybe
   (Right . validatePassword (encodeUtf8 password))
 
 generateToken :: IO Text
-generateToken = do
-  nextUUID >>= maybe generateToken (return . toText)
+generateToken = nextUUID >>= maybe generateToken (return . toText)
 
 publishToken :: Text -> MySQLConn -> IO (Either AuthError Text)
 publishToken name conn = do

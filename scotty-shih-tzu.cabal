@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0f1f71e95f70d06844676da2f8950558ac18a61cbfdc0adb6d0c751e353346b0
+-- hash: 17c1624161909c6c6d4172fd07dcd362a0fb850b0e0943c6ac77f50edd26b744
 
 name:           scotty-shih-tzu
 version:        0.1.0.0
@@ -35,6 +35,7 @@ library
       Domain.Repository.UserRepository
       Domain.Service.AuthService
       Infra.DBConnect
+      Infra.ErrorResponse
   other-modules:
       Paths_scotty_shih_tzu
   hs-source-dirs:
@@ -50,6 +51,7 @@ library
     , mysql-haskell
     , scotty
     , text
+    , uuid
   default-language: Haskell2010
 
 executable hello-scotty-exe

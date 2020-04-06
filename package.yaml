@@ -34,6 +34,7 @@ library:
     - scotty
     - text
     - mtl
+    - uuid
 
 executables:
   hello-scotty-exe:

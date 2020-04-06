@@ -1,9 +1,11 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 module Main where
 
 import Control.Monad.IO.Class
+import Data.Aeson (ToJSON)
 import Data.Text
 import Data.Text.Read
 import Database.MySQL.Base
@@ -12,10 +14,19 @@ import Domain.Entity.User
 import Domain.Repository.DogRepository
 import Domain.Repository.PhotoRepository
 import Domain.Repository.UserRepository
+import Domain.Service.AuthService
+import GHC.Generics
 import Infra.DBConnect
+import Infra.ErrorResponse
 import Network.HTTP.Types.Status
 import Web.Scotty
 import Text.Read (readMaybe)
+
+data Token = Token {
+  token :: Text
+} deriving (Show, Generic)
+
+instance ToJSON Token
 
 main :: IO ()
 main = do
@@ -34,8 +45,13 @@ main = do
       liftIO(transactional db $ createUser u db)
       status status201 >> text "Success"
 
-    get "/dogs" $ do
-      liftIO(findAllDog db) >>= json
+    post "/signin" $ do
+      u <- jsonData
+      liftIO(transactional db $ authenticate u db) >>= either
+        createAuthErrorResponse
+        (\token -> status status200 >> json Token { token })
+
+    get "/dogs" $ liftIO(findAllDog db) >>= json
 
     get "/dogs/:did" $ do
       (i :: Int) <- param "did"
@@ -53,9 +69,7 @@ main = do
       liftIO(transactional db $ updateDog d db)
       status status204 >> text "Success"
 
-    get "/photos" $ do
-      photos <- liftIO(findPhotoAll db)
-      json photos
+    get "/photos" $ liftIO(findPhotoAll db) >>= json
 
     get "/users/:uid/photos" $ do
       (i :: Int) <- param "uid"
