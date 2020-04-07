@@ -82,6 +82,10 @@ main = do
       photos <- liftIO(findPhotoByUserId i db)
       json photos
 
+    get "/users/:uid/dogs" $ do
+      (uid :: Int) <- param "uid"
+      liftIO(findDogByUserId uid db) >>= json
+
     get "/dogs/:did/photos" $ do
       (i :: Int) <- param "did"
       photos <- liftIO(findPhotoByDogId i db)

@@ -55,6 +55,12 @@ findAllDog conn = do
   (defs, is) <- queryStmt conn s []
   map createEntity <$> Streams.toList is
 
+findDogByUserId :: Int -> MySQLConn -> IO[Maybe Dog]
+findDogByUserId uid conn = do
+  s <- prepareStmt conn "SELECT dogs.id, dogs.name, dogs.bread, dogs.icon_url, users.id, users.name, dogs.bio from dogs INNER JOIN users ON dogs.owner_id = users.id WHERE users.id = ?"
+  (defs, is) <- queryStmt conn s [MySQLInt32 $ fromIntegral uid]
+  map createEntity <$> Streams.toList is
+
 updateDog :: Dog -> MySQLConn -> IO (OK)
 updateDog dog conn = do
   case did dog of
