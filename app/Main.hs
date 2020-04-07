@@ -51,6 +51,12 @@ main = do
         createAuthErrorResponse
         (\token -> status status200 >> json Token { token })
 
+    get "/auth" $ do
+      (token :: Text) <- param "token"
+      liftIO(findByToken token db) >>= maybe
+        (status status400 >> text "Invalid Token")
+        json
+
     get "/dogs" $ liftIO(findAllDog db) >>= json
 
     get "/dogs/:did" $ do

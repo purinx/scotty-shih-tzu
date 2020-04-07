@@ -60,8 +60,8 @@ setToken name token conn = do
   s <- prepareStmt conn "INSERT INTO tokens (user_name, token) VALUES (?, ?)"
   executeStmt conn s [MySQLText name, MySQLText token]
 
-findUserByToken :: Text -> MySQLConn -> IO (Maybe User)
-findUserByToken token conn = do
-  s <- prepareStmt conn "SELECT users.id, users.name from users INNER JOIN tokens ON tokens.name = users.name where tokens.token = ?"
+findByToken :: Text -> MySQLConn -> IO (Maybe User)
+findByToken token conn = do
+  s <- prepareStmt conn "SELECT users.id, users.name from users INNER JOIN tokens ON tokens.user_name = users.name where tokens.token = ?"
   (defs, is) <- queryStmt conn s [MySQLText token]
   createEntity . head <$> Streams.toList is
