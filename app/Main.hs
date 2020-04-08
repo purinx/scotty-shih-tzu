@@ -42,8 +42,11 @@ main = do
 
     post "/users" $ do
       u <- jsonData
-      liftIO(transactional db $ createUser u db)
-      status status201 >> text "Success"
+      liftIO(findPasswordByName (cuName u) db) >>= maybe
+        (do
+          liftIO(transactional db $ createUser u db)
+          status status201 >> text "Success")
+        (\_ -> do status status500 >> text "User Aleady Exist")
 
     post "/signin" $ do
       u <- jsonData
@@ -95,3 +98,7 @@ main = do
       p <- jsonData
       liftIO(transactional db $ createPhoto p db)
       status status201 >> text "success"
+
+    defaultHandler (\e -> do
+      liftIO $ print e
+      status status500 >> text e)
