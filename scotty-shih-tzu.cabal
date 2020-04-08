@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 17c1624161909c6c6d4172fd07dcd362a0fb850b0e0943c6ac77f50edd26b744
+-- hash: d63423d19ce20e36474f85d76cd1e3232da685a418bc4ee0921f887721df3cf1
 
 name:           scotty-shih-tzu
 version:        0.1.0.0
@@ -49,6 +49,7 @@ library
     , io-streams
     , mtl
     , mysql-haskell
+    , safe
     , scotty
     , text
     , uuid
@@ -70,6 +71,7 @@ executable hello-scotty-exe
     , io-streams
     , mtl
     , mysql-haskell
+    , safe
     , scotty
     , scotty-shih-tzu
     , text

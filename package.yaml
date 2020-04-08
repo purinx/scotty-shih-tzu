@@ -35,6 +35,7 @@ library:
     - text
     - mtl
     - uuid
+    - safe
 
 executables:
   hello-scotty-exe:
@@ -56,6 +57,7 @@ executables:
     - scotty-shih-tzu
     - text
     - uuid
+    - safe
 
 tests:
   hello-scotty-test:

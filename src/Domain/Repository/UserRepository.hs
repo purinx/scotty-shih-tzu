@@ -4,6 +4,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 module Domain.Repository.UserRepository where
 
+import Safe
 import Crypto.KDF.BCrypt (hashPassword)
 import Data.Aeson (FromJSON)
 import Data.Text (Text)
@@ -45,15 +46,15 @@ createUser user conn = do
   passwordHash <- hashPassword 12 . encodeUtf8 $ cuPassword user
   executeStmt conn s [MySQLText $ cuName user, MySQLBytes passwordHash]
 
-getPasswordHash :: [MySQLValue] -> Maybe ByteString
-getPasswordHash (MySQLBytes passwordHash : _) = Just passwordHash
+getPasswordHash :: Maybe [MySQLValue] -> Maybe ByteString
+getPasswordHash (Just (MySQLBytes passwordHash : _)) = Just passwordHash
 getPasswordHash _ = Nothing
 
 findPasswordByName :: Text -> MySQLConn -> IO (Maybe ByteString)
 findPasswordByName name conn = do
   s <- prepareStmt conn "SELECT password FROM users WHERE name = ?"
   (defs, is) <- queryStmt conn s [MySQLText name]
-  getPasswordHash . head <$> Streams.toList is
+  getPasswordHash . headMay <$> Streams.toList is
 
 setToken :: Text -> Text -> MySQLConn -> IO OK
 setToken name token conn = do
